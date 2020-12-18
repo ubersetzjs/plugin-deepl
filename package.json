@@ -12,7 +12,7 @@
   "author": "Max Nowack <max.nowack@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "deapl": "^2.0.0",
+    "deapl": "^2.0.1",
     "p-queue": "^6.6.2"
   },
   "devDependencies": {
