@@ -38,10 +38,6 @@ const translate: AutotranslationFunction = async (options) => {
   }
 }
 
-translate.kill = () => {
-  kill().catch((e) => {
-    console.error(e)
-  })
-}
+translate.kill = () => kill()
 
 export default translate
