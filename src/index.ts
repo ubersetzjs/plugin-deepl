@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { AutotranslationFunction } from 'ubersetz'
-import deepl from 'deapl'
+import deepl, { kill } from 'deapl'
 import PQueue from 'p-queue'
 
 const queue = new PQueue({ concurrency: 10 })
@@ -36,6 +36,12 @@ const translate: AutotranslationFunction = async (options) => {
       defaultDelay: 250,
     })),
   }
+}
+
+translate.kill = () => {
+  kill().catch((e) => {
+    console.error(e)
+  })
 }
 
 export default translate

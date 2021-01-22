@@ -25,6 +25,6 @@
     "eslint-plugin-prefer-object-spread": "^1.2.1",
     "eslint-plugin-sort-class-members": "^1.9.0",
     "typescript": "^4.1.3",
-    "ubersetz": "^0.2.0"
+    "ubersetz": "^0.2.1"
   }
 }
