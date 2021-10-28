@@ -2,6 +2,7 @@
 import { AutotranslationFunction } from 'ubersetz'
 import deepl, { kill } from 'deapl'
 import PQueue from 'p-queue'
+import preserveVariables from './preserveVariables'
 
 const queue = new PQueue({ concurrency: 10 })
 type SourceLanguage = Parameters<typeof deepl>[1]['sourceLanguage']
@@ -29,12 +30,16 @@ const translate: AutotranslationFunction = async (options) => {
   }
 
   return {
-    text: await queue.add(() => deepl(options.text, {
-      sourceLanguage,
-      targetLanguage,
-      formality: options.informal ? 'informal' : 'formal',
-      defaultDelay: 250,
-    })),
+    text: await queue.add(async () => {
+      const translated = await deepl(options.text, {
+        sourceLanguage,
+        targetLanguage,
+        formality: options.informal ? 'informal' : 'formal',
+        defaultDelay: 250,
+      })
+
+      return preserveVariables(options.text, translated)
+    }),
   }
 }
 
