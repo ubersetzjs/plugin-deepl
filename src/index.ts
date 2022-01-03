@@ -1,10 +1,11 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { AutotranslationFunction } from '@ubersetz/cli/dist/types'
-import deepl, { kill } from 'deapl'
+import deepl, { kill, setConcurrency } from 'deapl'
 import PQueue from 'p-queue'
 import preserveVariables from './preserveVariables'
 
-const queue = new PQueue({ concurrency: 10 })
+let concurrency = 1
+const queue = new PQueue({ concurrency })
 type SourceLanguage = Parameters<typeof deepl>[1]['sourceLanguage']
 type TargetLanguage = Parameters<typeof deepl>[1]['targetLanguage']
 
@@ -17,6 +18,12 @@ const targetLanguages: TargetLanguage[] = [
 ]
 
 const translate: AutotranslationFunction = async (options) => {
+  if (concurrency !== options.concurrency) {
+    concurrency = options.concurrency
+    queue.concurrency = concurrency
+    setConcurrency(concurrency)
+  }
+
   const sourceLanguage = options.sourceLanguage
     ? options.sourceLanguage.substr(0, 2).toLowerCase() as SourceLanguage
     : undefined
