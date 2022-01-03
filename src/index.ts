@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { AutotranslationFunction } from 'ubersetz'
+import { AutotranslationFunction } from '@ubersetz/cli/dist/types'
 import deepl, { kill } from 'deapl'
 import PQueue from 'p-queue'
 import preserveVariables from './preserveVariables'
