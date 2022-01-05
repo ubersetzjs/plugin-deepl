@@ -9,12 +9,52 @@ const queue = new PQueue({ concurrency })
 type SourceLanguage = Parameters<typeof deepl>[1]['sourceLanguage']
 type TargetLanguage = Parameters<typeof deepl>[1]['targetLanguage']
 
-const sourceLanguages: SourceLanguage[] = ['en', 'de', 'fr', 'es', 'pt', 'it', 'nl', 'pl', 'ru']
+const sourceLanguages: SourceLanguage[] = [
+  'bg',
+  'zh',
+  'cs',
+  'da',
+  'nl',
+  'en',
+  'et',
+  'fi',
+  'fr',
+  'de',
+  'el',
+  'hu',
+  'it',
+  'ja',
+  'lv',
+  'lt',
+  'pl',
+  'pt',
+  'ro',
+  'ru',
+  'sk',
+  'sl',
+  'es',
+  'sv',
+]
 const targetLanguages: TargetLanguage[] = [
-  'en-US', 'en-GB', 'de-DE', 'fr-FR',
-  'es-ES', 'pt-PT', 'pt-BR', 'it-IT',
-  'nl-NL', 'pl-PL', 'ru-RU', 'ja-JA',
+  'bg-BG',
   'zh-ZH',
+  'cs-CS',
+  'da-DA',
+  'nl-NL',
+  'en-GB',
+  'et-ET',
+  'fi-FI',
+  'el-EL',
+  'hu-HU',
+  'ja-JA',
+  'lv-LV',
+  'lt-LT',
+  'pt-BR',
+  'ro-RO',
+  'ru-RU',
+  'sk-SK',
+  'sl-SL',
+  'sv-SV',
 ]
 
 const translate: AutotranslationFunction = async (options) => {
