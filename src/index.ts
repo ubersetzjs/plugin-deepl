@@ -81,7 +81,7 @@ const translate: AutotranslationFunction = async (options) => {
       const translated = await deepl(options.text, {
         sourceLanguage,
         targetLanguage,
-        formality: options.informal ? 'informal' : 'formal',
+        formality: options.informal ? 'informal' : undefined,
         defaultDelay: 250,
       })
 
