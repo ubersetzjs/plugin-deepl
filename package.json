@@ -24,7 +24,7 @@
     "dist"
   ],
   "dependencies": {
-    "deapl": "^2.1.6",
+    "deapl": "^2.1.7",
     "p-queue": "^6.6.2"
   },
   "devDependencies": {
