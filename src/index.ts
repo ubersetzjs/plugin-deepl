@@ -2,6 +2,7 @@
 import { AutotranslationFunction } from '@ubersetz/cli/dist/types'
 import deepl, { kill, setConcurrency } from 'deapl'
 import PQueue from 'p-queue'
+import pRetry from 'p-retry'
 import preserveVariables from './preserveVariables'
 
 let concurrency = 1
@@ -85,12 +86,12 @@ const translate: AutotranslationFunction = async (options) => {
 
   return {
     text: await queue.add(async () => {
-      const translated = await deepl(options.text, {
+      const translated = await pRetry(() => deepl(options.text, {
         sourceLanguage,
         targetLanguage,
         formality: options.informal ? 'informal' : undefined,
         defaultDelay: 250,
-      })
+      }), { retries: 5 })
 
       return preserveVariables(options.text, translated)
     }),
