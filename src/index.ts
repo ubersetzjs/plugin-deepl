@@ -23,6 +23,7 @@ const sourceLanguages: SourceLanguage[] = [
   'de',
   'el',
   'hu',
+  'id',
   'it',
   'ja',
   'lv',
@@ -35,6 +36,8 @@ const sourceLanguages: SourceLanguage[] = [
   'sl',
   'es',
   'sv',
+  'tr',
+  'uk',
 ]
 const targetLanguages: TargetLanguage[] = [
   'bg-BG',
@@ -50,6 +53,7 @@ const targetLanguages: TargetLanguage[] = [
   'de-DE',
   'el-GR',
   'hu-HU',
+  'id-ID',
   'it-IT',
   'ja-JP',
   'lv-LV',
@@ -63,6 +67,8 @@ const targetLanguages: TargetLanguage[] = [
   'sl-SL',
   'es-ES',
   'sv-SV',
+  'tr-TR',
+  'uk-UA',
 ]
 
 const translate: AutotranslationFunction = async (options) => {
