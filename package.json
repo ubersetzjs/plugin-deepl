@@ -24,7 +24,7 @@
     "dist"
   ],
   "dependencies": {
-    "deapl": "^2.1.10",
+    "deapl": "^2.1.11",
     "p-queue": "^6.6.2",
     "p-retry": "^4.6.1"
   },
