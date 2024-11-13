@@ -25,6 +25,7 @@
   ],
   "dependencies": {
     "deapl": "^2.2.4",
+    "deepl-node": "^1.14.0",
     "p-queue": "^6.6.2",
     "p-retry": "^4.6.1"
   },

@@ -1,6 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { AutotranslationFunction } from '@ubersetz/cli/dist/types'
 import deepl, { kill, setConcurrency } from 'deapl'
+import { TargetLanguageCode, Translator } from 'deepl-node'
 import PQueue from 'p-queue'
 import pRetry from 'p-retry'
 import preserveVariables from './preserveVariables'
@@ -71,6 +72,21 @@ const targetLanguages: TargetLanguage[] = [
   'uk-UA',
 ]
 
+function simplifyTargetLang(langCode: TargetLanguage): TargetLanguageCode {
+  if (langCode === 'pt-PT') return langCode as TargetLanguageCode
+  if (langCode === 'zh-CN') return 'zh'
+  if (langCode === 'cs-CZ') return 'cs'
+  if (langCode === 'da-DK') return 'da'
+  if (langCode === 'el-GR') return 'el'
+  if (langCode === 'ja-JP') return 'ja'
+  if (langCode === 'uk-UA') return 'uk'
+
+  const parts = langCode.split('-')
+  if (parts.length === 1) return parts[0] as TargetLanguageCode
+  if (parts[0].toLowerCase() === parts[1].toLowerCase()) return parts[0] as TargetLanguageCode
+  return langCode as TargetLanguageCode
+}
+
 const translate: AutotranslationFunction = async (options) => {
   if (concurrency !== options.concurrency) {
     concurrency = options.concurrency
@@ -88,6 +104,19 @@ const translate: AutotranslationFunction = async (options) => {
   const targetLanguage = `${options.targetLanguage.substr(0, 2).toLowerCase()}-${options.targetLanguage.substr(3, 2).toUpperCase()}` as TargetLanguage
   if (!targetLanguages.includes(targetLanguage)) {
     throw new Error(`Invalid target language '${targetLanguage}'. It must be one of these: ${targetLanguages.join(', ')}`)
+  }
+
+  if (process.env.DEEPL_API_KEY) {
+    const translator = new Translator(process.env.DEEPL_API_KEY)
+    const result = await queue.add(() => translator.translateText(
+      options.text,
+      sourceLanguage || null,
+      simplifyTargetLang(targetLanguage),
+      options.informal == null ? {} : { formality: options.informal ? 'less' : 'more' },
+    ))
+    return {
+      text: preserveVariables(options.text, result.text),
+    }
   }
 
   return {
