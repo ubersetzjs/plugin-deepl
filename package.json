@@ -1,6 +1,6 @@
 {
   "name": "ubersetz-plugin-deepl",
-  "version": "1.4.12",
+  "version": "1.5.0",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
